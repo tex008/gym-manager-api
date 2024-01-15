@@ -25,7 +25,7 @@ app.setErrorHandler((error, _request, reply) => {
       })
 
     case error instanceof InvalidCredentialError:
-      return reply.status(403).send({
+      return reply.status(400).send({
         message: error.message,
       })
     default:
