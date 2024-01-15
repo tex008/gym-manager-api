@@ -2,7 +2,7 @@ import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
 import { appRoutes } from './http/routes'
-import { UserAlreadyExistsError } from './http/usecases/errors/user-already-exists-error'
+import { UserAlreadyExistsError } from './usecases/errors/user-already-exists-error'
 
 export const app = fastify()
 
