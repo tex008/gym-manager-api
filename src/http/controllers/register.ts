@@ -13,21 +13,10 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   const { name, email, password } = registerBodySchema.parse(request.body)
 
-  try {
-    const prismaUsersRepository = new PrismaUsersRepository()
-    const registerUseCase = new RegisterUseCase(prismaUsersRepository)
+  const prismaUsersRepository = new PrismaUsersRepository()
+  const registerUseCase = new RegisterUseCase(prismaUsersRepository)
 
-    await registerUseCase.execute({ name, email, password })
-  } catch (error) {
-    if (error instanceof UserAlreadyExistsError) {
-      reply.status(409).send({
-        message: error.message,
-      })
-    }
-    reply.status(500).send({
-      message: 'Internal server error.',
-    })
-  }
+  await registerUseCase.execute({ name, email, password })
 
   return reply.status(201).send()
 }
