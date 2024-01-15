@@ -2,6 +2,7 @@ import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
 import { appRoutes } from './http/routes'
+import { InvalidCredentialError } from './usecases/errors/invalid-credentials-error'
 import { UserAlreadyExistsError } from './usecases/errors/user-already-exists-error'
 
 export const app = fastify()
@@ -20,6 +21,11 @@ app.setErrorHandler((error, _request, reply) => {
 
     case error instanceof UserAlreadyExistsError:
       return reply.status(409).send({
+        message: error.message,
+      })
+
+    case error instanceof InvalidCredentialError:
+      return reply.status(403).send({
         message: error.message,
       })
     default:
