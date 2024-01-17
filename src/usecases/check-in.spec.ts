@@ -19,8 +19,8 @@ describe('Check-in Use Case', () => {
       title: 'Academia do João Frango',
       description: 'Academia do Bairro',
       phone: '31999999999',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: new Decimal(-23.5477907),
+      longitude: new Decimal(-46.7206144),
     })
 
     vi.useFakeTimers()
@@ -81,5 +81,25 @@ describe('Check-in Use Case', () => {
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to check in on a gym further than the distance limit', async () => {
+    gymsRepository.databaseGyms.push({
+      id: 'gym-02',
+      title: 'Academia bem longe',
+      description: 'Academia do Bairro',
+      phone: '31999999999',
+      latitude: new Decimal(19.9514008),
+      longitude: new Decimal(-44.0506493),
+    })
+
+    await expect(() =>
+      sut.execute({
+        userId: 'user-01',
+        gymId: 'gym-02',
+        userLatitude: -23.5477907,
+        userLongitude: -46.7206144,
+      }),
+    ).rejects.toBeInstanceOf(Error)
   })
 })
