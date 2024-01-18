@@ -2,9 +2,9 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { Decimal } from '@prisma/client/runtime/library'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { CheckInUseCase } from './check-in'
-import { DailyCheckInLimitExceededError } from './errors/daily-check-in-exceeded-error'
-import { MaxDistanceExceededError } from './errors/max-distance-error'
+import { CheckInUseCase } from '../check-in'
+import { DailyCheckInLimitExceededError } from '../errors/daily-check-in-exceeded-error'
+import { MaxDistanceExceededError } from '../errors/max-distance-error'
 
 let checkInRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
