@@ -6,6 +6,14 @@ import { CheckInsRepository } from '../check-ins-repository'
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public databaseCheckIns: CheckIn[] = []
 
+  async findById(id: string) {
+    const checkIn = this.databaseCheckIns.find((checkIn) => checkIn.id === id)
+
+    if (!checkIn) return null
+
+    return checkIn
+  }
+
   async findManyByUserId(userId: string, page: number) {
     return this.databaseCheckIns
       .filter((checkIn) => checkIn.user_id === userId)
@@ -44,6 +52,18 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     }
 
     this.databaseCheckIns.push(checkIn)
+    return checkIn
+  }
+
+  async update(checkIn: CheckIn) {
+    const checkInIndex = this.databaseCheckIns.findIndex(
+      (gym) => gym.id === checkIn.id,
+    )
+
+    if (checkInIndex >= 0) {
+      this.databaseCheckIns[checkInIndex] = checkIn
+    }
+
     return checkIn
   }
 }
