@@ -18,7 +18,7 @@ describe('Check-in Use Case', () => {
 
     await gymsRepository.create({
       id: 'gym-01',
-      title: 'Academia do João Frango',
+      title: 'João Frango"s Gym',
       description: '',
       phone: '',
       latitude: -23.5477907,

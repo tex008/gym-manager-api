@@ -13,7 +13,7 @@ describe('Register Use Case', () => {
 
   it('should be able to create gym', async () => {
     const { gym } = await sut.execute({
-      title: 'Academia do João Frango',
+      title: 'João Frango"s Gym',
       description: null,
       phone: null,
       latitude: -23.5477907,
