@@ -1,3 +1,4 @@
+import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
@@ -6,6 +7,10 @@ import { InvalidCredentialError } from './usecases/errors/invalid-credentials-er
 import { UserAlreadyExistsError } from './usecases/errors/user-already-exists-error'
 
 export const app = fastify()
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
 
 app.register(appRoutes)
 
