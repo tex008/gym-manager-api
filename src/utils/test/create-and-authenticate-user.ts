@@ -11,17 +11,19 @@ export async function createAndAuthenticateUser(
     data: {
       name: 'John Doe',
       email: 'johndoe@example.com',
-      password_hash: await hash('123456', 6),
+      password_hash: await hash('12345678', 6),
       role: isAdmin ? 'ADMIN' : 'MEMBER',
     },
   })
+
   const authResponse = await request(app.server).post('/sessions').send({
-    name: 'Jonh Doe',
-    email: 'jonhdoe@test.com',
+    email: 'johndoe@example.com',
     password: '12345678',
   })
 
   const { token } = authResponse.body
 
-  return { token }
+  return {
+    token,
+  }
 }
